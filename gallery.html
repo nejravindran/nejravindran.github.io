@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Poppins'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="style.css">
+        
+        <title>Nej Ravindran</title>
+
+        <style>
+            .contentwrapper{
+                display:grid;
+                position: relative;
+                justify-content: center;
+                align-items: center;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                padding: 10px;
+                margin-bottom: 20px;
+            }
+
+            .card 
+            {
+                margin-left: auto;
+                margin-top: auto;
+                margin-right: auto;
+                margin-bottom: 5px;
+                padding: 10px;
+                width: fit-content;
+                height:fit-content;
+                background-color: white;
+                box-shadow: 1px 1px 5px black 
+            }
+
+            .thumb_frame
+            {
+                background: black;
+                max-height: 200px;
+                max-width: 200px;
+                align-items: center;
+                text-align: center;
+                vertical-align:middle;
+            }
+
+
+            .thumb
+            {
+                cursor: pointer;
+            }
+
+            #canvas
+            {
+                display: none;
+                width: 100%;
+                height: 100vh;
+                left: 0;
+                top: 0;
+                z-index: 1000;
+                position: fixed;
+                align-items: center;
+                justify-content: center;
+            }
+
+            #photo
+            {
+                max-width: 95%; 
+                max-height: 100%;
+                padding: 2px;
+                background-color: white;
+                box-shadow: 0px 0px 100px black; 
+            }
+
+
+        </style>
+    </head>
+
+    <body>
+        <div class="wrapper">
+            <header>
+                <div class="headerwrapper">
+                    <div class="logowrapper">
+                        <div class="logoframe">
+                            <img class="logo" src="profile100.jpg" alt="profile pic">
+                        </div>
+                        <div class="logotext">Nej Ravindran</div>
+                    </div>    
+                    
+                    <div class="normalmenuwrapper">
+                        <nav>
+                            <ul>
+                                <li><a href="/index.html">Home</a></li>
+                                <li><a href="/gallery.html">Gallery</a></li>
+                                <li><a href="/about.html">About</a></li>
+                            </ul>
+                        </nav>        
+                    </div>    
+
+                    <div class="mobilemenuwrapper">
+                        <div class="mobilemenubutton">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <div class="mobilemenu">
+                            <nav>
+                                <ul>
+                                    <li><a href="/index.html">Home</a></li>
+                                    <li><a href="/gallery.html">Gallery</a></li>
+                                    <li><a href="/about.html">About</a></li>
+                                </ul>
+                            </nav>        
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <hr/>
+
+            <div class="contentwrapper">
+                <!-- thumbnails to be added dynamically by JS -->
+            </div>
+
+            <div id="canvas">
+                <!-- for loading the pic -->
+                <img id="photo" src=""/>
+            </div>        
+
+            <footer>
+                <div>
+                    <span class="social">&copy Nej Ravindran |</span>
+                </div>
+                <div>
+                    <a class="social" href="https://www.instagram.com/nej.ravindran"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+                <div>
+                    <a class="social" href="https://www.youtube.com/@nej.ravindran"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </footer>
+
+        </div>
+
+        <script src="site.js"></script>
+        
+        <script>
+            let pics = [
+                {fileName: 'kid.jpg', description: "Lone Kid", medium: 'Watercolor', size: '10 x 12 in', price: '', availability: 'Sold' },
+                {fileName: 'ritu.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'abstractgirl.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'angling.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'applepicker.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'appleseller.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'autumn.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'ayisha.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'bbeauty.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'beforerain.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'blue-landscape.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'boygirlnight.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'boyinrain.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'dandelion.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'evening.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'girlinrain.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'farmer.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'ladyinmoon.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'radhakrishna.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'radhamadhavam.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'saxgirl.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'squirrels.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'winter.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                {fileName: 'toronto.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
+                
+            ]; 
+
+
+            $(function(){
+                pics.forEach(pic => {
+                    let cardHtml = `
+                    <div class="card">
+                        <div class="thumb_frame">
+                        <img class="thumb" src="/gallery/thumbnails/${pic.fileName}" />
+                        </div>
+                    </div>`; 
+
+                    $('.contentwrapper').append(cardHtml);
+                });
+
+
+                $('.thumb').click(function (){
+                    var url = this.src.replace('thumbnails', 'paintings');
+                    var canvas = $('#canvas');
+                    $(canvas).css('display', 'flex');
+                    $('#photo').attr('src', url);
+                    $('#photo').css('margin', 'auto');
+                    
+                });      
+
+                $('#canvas').click(function (){
+                var canvas = $('#canvas');
+                    $(canvas).css('display', 'none');
+                });
+            });
+
+        </script>
+    </body>
+</html>

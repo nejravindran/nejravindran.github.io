@@ -67,7 +67,7 @@ hr {
 }
 
 .logotext{
-    color:antiquewhite; 
+    color:white; 
     font-size: 1.5em;
 }
 
@@ -95,7 +95,7 @@ hr {
 }
 
 .mobilemenuwrapper nav ul li a{
-    color:#e5e5e5;
+    color:white;
     margin-right: 2.5rem;
 }
 
@@ -164,7 +164,7 @@ hr {
     }
 
     .normalmenuwrapper nav ul li a{
-        color:#e5e5e5;
+        color:white;
         margin-right: 2.5rem;
     }
 

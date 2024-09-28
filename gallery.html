@@ -19,7 +19,7 @@
                 position: relative;
                 justify-content: center;
                 align-items: center;
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
                 padding: 10px;
                 margin-bottom: 20px;
             }
@@ -34,7 +34,7 @@
                 width: fit-content;
                 height:fit-content;
                 background-color: white;
-                box-shadow: 1px 1px 10px black 
+                box-shadow: 1px 1px 10px black; 
             }
 
             .thumb_frame
@@ -109,15 +109,61 @@
                 color:white;
                 font-size: bold;
                 background-color:rgb(21, 21, 21);
-                padding: 6px 6px;
-                width: 20px;
+                padding: 10px;
                 margin-bottom: 2px;
                 border-radius: 3px;
                 text-decoration: none;
+                border-radius: 20%;
             }
 
             .pagelinkselected{
                 color:#007ced;
+            }
+
+            .prev{
+                left: 20px;
+                font-size:30px;
+                position: fixed;
+                cursor:pointer;                
+            }
+
+            .prev:hover {
+                color: #007ced;
+            }
+
+
+            .next{
+                right: 20px;
+                font-size:30px;
+                position: fixed;
+                cursor:pointer;
+
+            }
+
+            .next:hover{
+                color: #007ced;
+            }
+
+            #prev{
+                box-shadow: 1px 1px 10px black;
+                border-radius: 50%;
+            }
+
+            #next{
+                box-shadow: 1px 1px 10px black;
+                border-radius: 50%;
+            }
+
+            .filterwrapper{
+                margin-left: auto;
+                margin-right: auto;
+            }
+
+            #filter{
+                width: 150px;
+                font-size: larger;
+                background-color: rgb(21, 21, 21);
+                color: white;
             }
 
         </style>
@@ -129,7 +175,9 @@
                 <div class="headerwrapper">
                     <div class="logowrapper">
                         <div class="logoframe">
-                            <img class="logo" src="profile100.jpg" alt="profile pic">
+                            <a href="/index.html">
+                                <img class="logo" src="profile100.jpg" alt="profile pic"/>
+                            </a>
                         </div>
                         <div class="logotext">Nej Ravindran</div>
                     </div>    
@@ -165,22 +213,40 @@
             </header>
             
             <hr/>
+            
+            <div class="filterwrapper">
+                <!-- <label for="filters">Filter</label> -->
+                 <select id="filter">
+                    <option>All</option>
+                    <option>Watercolor</option>
+                    <option>Digital</option>
+                 </select>
+            </div>
 
             <div class="contentwrapper">
                 <!-- thumbnails to be added dynamically by JS -->
             </div>
 
             <div class="paginationwrapper">
-                
+                <!-- page links to be added dynamically by JS -->
             </div>
 
             <!-- for loading the pic -->
             <div id="canvas" class="canvas">
+                <div class="prev">
+                    <i id="prev" class="fas fa-chevron-circle-left"></i>
+                </div>
+
                 <div id="title" class="info"></div>
                 <div class="photoframe">
                     <img id="photo" class="photo" src=""/>
                 </div>
                 <div id="info" class="info"></div>
+
+                <div class="next">
+                    <i id="next" class="fas fa-chevron-circle-right"></i>
+                </div>
+
             </div>        
 
             <footer>
@@ -200,7 +266,7 @@
         <script src="site.js"></script>
         
         <script>
-            let pics = [
+            let picsDb = [
                 {fileName: 'kid.jpg', description: "Lone Kid", medium: 'Watercolor', size: '10 x 12 in', price: '', availability: 'Sold' },
                 {fileName: 'ritu.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
                 {fileName: 'abstractgirl.jpg', description: "Abstract Girl", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
@@ -227,23 +293,58 @@
                 {fileName: 'toronto.jpg', description: "Toronto", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },                
             ]; 
 
-            const pageSize = 5;
+            let pics = [];
+            let pageSize = 5;
             let noOfPages = Math.ceil(pics.length / pageSize);
+            let curPageNo = 1;
+            let startIndex = 0;
+            let endIndex = 0;
+            let curIndex = 0;
+
+
+
+            function loadPicsByCurFilter(){
+                let curFilter = $('#filter').find('option:selected').text();
+                
+                if(curFilter === "All"){
+                    pics = picsDb;
+                }else{
+                    pics = [];
+
+                    picsDb.forEach(pic => {
+                        if(pic.medium == curFilter){
+                            pics.push(pic);
+                        }
+                    });
+                }
+
+                noOfPages = Math.ceil(pics.length / pageSize);
+                curPageNo = 1;
+                startIndex = 0;
+                endIndex = 0;
+                curIndex = 0;
+            }
+
 
             function createPageLinks(){
+                $(".paginationwrapper").html('');
+
                 for (let i = 1; i <= noOfPages; i++) {
                     $(".paginationwrapper").append(`<a href="#" class="pagelink pagelinkunselected">${i}</a> &nbsp;&nbsp;&nbsp;`)
 
                 }
             }
- 
-            function loadPage(pageNo){
+
+
+
+            function loadPage(){
+
                 $('.contentwrapper').html('');
 
-                let startIndex = (pageNo-1) * pageSize;
-                let endIndex = startIndex + pageSize;
+                startIndex = (curPageNo-1) * pageSize;
+                endIndex =  (startIndex + pageSize) > pics.length-1 ? pics.length-1 : (startIndex + pageSize) - 1;
                 
-                for (let i = startIndex; i < endIndex; i++) {
+                for (let i = startIndex; i <= endIndex; i++) {
                     if(i > pics.length-1)
                         break;
 
@@ -253,7 +354,8 @@
                     <div class="card">
                         <div class="thumb_frame">
                         <img class="thumb" src="/gallery/thumbnails/${pic.fileName}" 
-                            data-title="${pic.description}" data-medium="${pic.medium}" data-size="${pic.size}" data-availability="${pic.availability}" />
+                            data-title="${pic.description}" data-medium="${pic.medium}" 
+                            data-size="${pic.size}" data-availability="${pic.availability}" data-index="${pics.indexOf(pic)}" />
                         </div>
                     </div>`; 
 
@@ -261,7 +363,7 @@
                 }        
 
                 $('.pagelink').filter(function(){
-                    if( $(this).text() == pageNo){
+                    if( $(this).text() == curPageNo){
                         $(this).removeClass('pagelinkselected');
                         $(this).addClass('pagelinkunselected');
                         $(this).addClass('pagelinkselected');
@@ -273,22 +375,43 @@
                
             }
 
+            function showImage(index){
+                let pic = pics[index];
+
+                let info = pic.medium + "   |   " +  pic.size + "   |   " +  pic.availability;
+                $("#title").text(pic.description);
+                $("#info").text(info);
+
+                let url = `/gallery/paintings/${pic.fileName}`;
+                let canvas = $('#canvas');
+                $(canvas).css('display', 'flex');
+                $('#photo').attr('src', url);
+                $('#photo').css('margin', 'auto');
+
+                //console.log(curIndex);
+            }
+
 
             function setupSlideShow(){
                 $('.thumb').click(function (){
-                    let title = $(this).attr("data-title");
-                    let info = $(this).attr("data-medium") + "   |   " +  $(this).attr("data-size") + "   |   " +  $(this).attr("data-availability");
-                    $("#title").text(title);
-                    $("#info").text(info);
+                    curIndex = parseInt($(this).attr("data-index"));
+
+                    showImage(curIndex);
+
+                    // let title = $(this).attr("data-title");
+                    // let info = $(this).attr("data-medium") + "   |   " +  $(this).attr("data-size") + "   |   " +  $(this).attr("data-availability");
+                    // $("#title").text(title);
+                    // $("#info").text(info);
                     
-                    let url = this.src.replace('thumbnails', 'paintings');                    
-                    let canvas = $('#canvas');
-                    $(canvas).css('display', 'flex');
-                    $('#photo').attr('src', url);
-                    $('#photo').css('margin', 'auto');
+                    // let url = this.src.replace('thumbnails', 'paintings');                    
+                    // let canvas = $('#canvas');
+                    // $(canvas).css('display', 'flex');
+                    // $('#photo').attr('src', url);
+                    // $('#photo').css('margin', 'auto');
     
                 });      
 
+                
                 $('#canvas').click(function (){
                     var canvas = $('#canvas');
                     $(canvas).css('display', 'none');
@@ -296,9 +419,29 @@
 
             }
 
+
+            $('#prev').click(function(evt){
+                evt.stopPropagation();
+
+                if(curIndex > startIndex)
+                    curIndex = curIndex - 1;
+
+                showImage(curIndex);
+            });
+
+            $('#next').click(function(evt){
+                evt.stopPropagation();
+
+                if(curIndex < endIndex)
+                    curIndex = curIndex + 1;
+
+                showImage(curIndex);
+            });
+
             function setupPageLinks(){
                 $('.pagelink').click(function (){
-                    loadPage($(this).text());
+                    curPageNo = $(this).text(); 
+                    loadPage();
                     $('.pagelink').removeClass('pagelinkselected');
                     $('.pagelink').addClass('pagelinkunselected');
                     $(this).addClass('pagelinkselected');
@@ -307,9 +450,19 @@
             }
 
             $(function(){
+
+                loadPicsByCurFilter();
                 createPageLinks();
-                loadPage(1);
+                loadPage();
                 setupPageLinks();
+
+
+                $('#filter').change(() => {
+                    loadPicsByCurFilter();
+                    createPageLinks();
+                    loadPage();
+                    setupPageLinks();
+                });
 
             });
 

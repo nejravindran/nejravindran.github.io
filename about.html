@@ -1,88 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Nej Ravindran</title>
-        <link rel="stylesheet" href="style.css">
-        <!----Font awesome cdn  font icon css -->
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Poppins'>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="style.css">
+        
+        <title>Nej Ravindran</title>
+
+        <style>
+            .contentwrapper{
+                display:flex;
+                flex-direction: column;
+                align-items: center;
+                align-content: center;
+                margin: auto;
+            }
+
+            @media (min-width:768px) {
+                .contentwrapper{
+                    flex-direction: row;
+                }
+            
+            }
+
+            .soc{
+                font-size: larger;
+            }
+
+        </style>
     </head>
 
     <body>
-        <div class="hero-header">
-            <div class="wrapper">
-                <header>
-                    <div class="logo">
-                        <!-- <i class="fa-solid fa-n"></i> -->
-                        <div class="logoimage">
-                            <img class="logoimage" src="profile100.jpg" alt="profile pic">
+        <div class="wrapper">
+            <header>
+                <div class="headerwrapper">
+                    <div class="logowrapper">
+                        <div class="logoframe">
+                            <a href="/index.html">
+                                <img class="logo" src="profile100.jpg" alt="profile pic"/>
+                            </a>
                         </div>
-                        <div class="logo-text">Nej Ravindran</div>
-                    </div>
-                    <nav>
-                        <div class="togglebtn">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                        <ul class="navlinks">
-                            <li><a href="/index.html">Home</a></li>
-                            <li><a href="/gallery.html">Gallery</a></li>
-                            <li><a href="/about.html">About</a></li>
-                        </ul>
-                    </nav>
-                </header>
-                
-                <div class="container">
-                    <div class="hero-pic">
-                        <img src="profile300.jpg" alt="profile pic">
-                    </div>
-                    <div class="hero-text">
-                        <h5>Hi I'm <span class="input">an artist</span></h5>
-                        <h1>Nej Ravindran</h1>
-                        <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta delectus dolorum 
-                            quibusdam maiores magni quod rem in porro, laborum, laudantium ex repellendus explicabo, 
-                            autem molestiae!
-                        </p>
+                        <div class="logotext">Nej Ravindran</div>
+                    </div>    
+                    
+                    <div class="normalmenuwrapper">
+                        <nav>
+                            <ul>
+                                <li><a href="/index.html">Home</a></li>
+                                <li><a href="/gallery.html">Gallery</a></li>
+                                <li><a href="/about.html">About</a></li>
+                            </ul>
+                        </nav>        
+                    </div>    
 
-                        <div class="btn-group">
-                        <a href="#" class="btn active">Download CV</a>
-                        <a href="#" class="btn">Contact</a>
+                    <div class="mobilemenuwrapper">
+                        <div class="mobilemenubutton">
+                            <span></span>
+                            <span></span>
+                            <span></span>
                         </div>
 
-                        <div class="social">
-                            <!-- <a href="#"><i class="fa-brands fa-facebook"></i></a> -->
-                            <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                            <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                            <a href="#"><i class="fa-brands fa-pintrest"></i></a>
+                        <div class="mobilemenu">
+                            <nav>
+                                <ul>
+                                    <li><a href="/index.html">Home</a></li>
+                                    <li><a href="/gallery.html">Gallery</a></li>
+                                    <li><a href="/about.html">About</a></li>
+                                </ul>
+                            </nav>        
                         </div>
                     </div>
                 </div>
+            </header>
+            
+            <hr/>
+
+            <div class="contentwrapper">
+                <div class="profileframe" style="overflow: hidden;min-width: 300px;margin: 50px;">
+                    <img src="/prof3000.jpg" style="border-radius: 50%;margin: auto;"/>
+                </div>
+                <div style="padding-left: 20px; margin: 50px;">
+                    <h2>Nej Ravindran</h2>
+
+                    <div style="text-align: justify;">
+                        <p>
+                            As an artist, watercolor holds a special place in my heart.  However, I embrace a wide range of mediums including acrylics, oils, and digital. 
+                            With digital, I prefer to keep a traditional style, and my workflows follow are more aligned to traditional techniques than typical digital ones.                       
+                            My work is inspired by a wide variety of subjects: Landscapes, figurative pieces, portraits, and abstracts.
+                            Each creation reflects a moment of curiosity and discovery.    
+                        </p>
+                        <p>
+                            Though my primary profession lies in the world of technology, art has always been my way of being more expressive and creative.
+                            The knowledge of technology enhances my art rather than conflicting with it.  For instance, it allowed me to build this website on my own without the need to outsource it to anyone else.     
+                        </p>
+                        <p>
+                            My goal as an artist is simple: to continually learn, grow, and push the boundaries of my creativity. 
+                            I seek to evolve with each piece, experimenting with new techniques and ideas while honing my skills. 
+                            In the future, I aspire to share this journey with a broader audience through exhibitions, hoping to connect with others who find beauty in the blending of art and technology, tradition and innovation.
+                            Ultimately, my art is a reflection of the joy I find in creating, and the endless possibilities that await exploration.     
+                        </p>
+                        <p>
+                            I invite viewers to join me in this journey of discovery, where every brushstroke and digital stroke leads to new insights and connections.
+                        </p>    
+                        <hr/>
+                        <p>
+                            <h3>Connect with me:</h3>
+                            <div>
+                                <i class="fa-brands fa-instagram"></i> <a class="social soc" href="https://www.instagram.com/nej.ravindran">instagram.com/nej.ravindran</a>    
+                            </div>                            
+                            <div>
+                                <i class="fa-brands fa-youtube"></i> <a class="social soc" href="https://www.youtube.com/@nej.ravindran">youtube.com/@nej.ravindran</a>    
+                            </div>
+                            <div>
+                                <i class="fa-solid fa-envelope"></i> <a class="social soc" href="mailto:nej.ravindran@gmail.com">nej.ravindran@gmail.com</a>                                </div>
+                            
+                        </p>
+                  </div>
+                </div>
             </div>
+
+            <footer>
+                <div>
+                    <span class="social">&copy Nej Ravindran |</span>
+                </div>
+                <div>
+                    <a class="social" href="https://www.instagram.com/nej.ravindran"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+                <div>
+                    <a class="social" href="https://www.youtube.com/@nej.ravindran"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </footer>
+
         </div>
 
-
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/typed.js/2.0.10/typed.min.js"></script>    
-        <script>
-            /** creating button click show hide navbar **/
-            var togglebtn=document.querySelector(".togglebtn");
-            var nav=document.querySelector(".navlinks");
-            var links=document.querySelector(".navlinks li");
-
-            togglebtn.addEventListener("click", function(){
-                this.classList.toggle("click");
-                nav.classList.toggle("open");
-                // nav.classList.toggle("navlinks");
-            })
-
-            var typed=new Typed(".input",{
-                strings:["an artist","art lover","a tech enthusiast"],
-                typedSpeed:70,
-                backSpeed:55,
-                loop:true
-            })
-        </script>
+        <script src="site.js"></script>        
     </body>
 </html>

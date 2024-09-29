@@ -164,6 +164,11 @@
                 font-size: larger;
                 background-color: rgb(21, 21, 21);
                 color: white;
+                
+            }
+
+            #hideSold{
+                margin-left: 20px;
             }
 
         </style>
@@ -215,12 +220,14 @@
             <hr/>
             
             <div class="filterwrapper">
-                <!-- <label for="filters">Filter</label> -->
                  <select id="filter">
                     <option>All</option>
                     <option>Watercolor</option>
                     <option>Digital</option>
                  </select>
+
+                 <input id="hideSold" type="checkbox" />
+                 <span>Exclude sold</span>
             </div>
 
             <div class="contentwrapper">
@@ -267,30 +274,30 @@
         
         <script>
             let picsDb = [
-                {fileName: 'kid.jpg', description: "Lone Kid", medium: 'Watercolor', size: '10 x 12 in', price: '', availability: 'Sold' },
-                {fileName: 'ritu.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'abstractgirl.jpg', description: "Abstract Girl", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'angling.jpg', description: "Angling", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'applepicker.jpg', description: "Apple Picker Girl", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'appleseller.jpg', description: "Apple Seller", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'autumn.jpg', description: "Autumn", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'ayisha.jpg', description: "Ayisha", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'bbeauty.jpg', description: "Beautiful Girl Child", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'beforerain.jpg', description: "Before Rain", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'blue-landscape.jpg', description: "Night Landscape", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'boygirlnight.jpg', description: "In Moonlight", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'boyinrain.jpg', description: "Boy in Rain", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'dandelion.jpg', description: "Dandelion", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'evening.jpg', description: "Evening", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'girlinrain.jpg', description: "Girl in Rain", medium: 'Watercolor', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'farmer.jpg', description: "Marks of Toil", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'ladyinmoon.jpg', description: "Lady in Moon", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'radhakrishna.jpg', description: "Radha Krishna", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'radhamadhavam.jpg', description: "Radha Madhavam", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'saxgirl.jpg', description: "Sax Girl", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'squirrels.jpg', description: "Squirrels", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'winter.jpg', description: "Winter", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },
-                {fileName: 'toronto.jpg', description: "Toronto", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available' },                
+                {fileName: 'kid.jpg', description: "Lone Kid", medium: 'Watercolor', size: '10 x 12 in', price: '', availability: 'Sold', printSizes: '8x10, 12x16, 16x20 in' },
+                {fileName: 'ritu.jpg', description: "Ritu", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'abstractgirl.jpg', description: "Abstract Girl", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'angling.jpg', description: "Angling", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'applepicker.jpg', description: "Apple Picker Girl", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'appleseller.jpg', description: "Apple Seller", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'autumn.jpg', description: "Autumn", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'ayisha.jpg', description: "Ayisha", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'bbeauty.jpg', description: "Beautiful Girl Child", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'beforerain.jpg', description: "Before Rain", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'blue-landscape.jpg', description: "Night Landscape", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'boygirlnight.jpg', description: "In Moonlight", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'boyinrain.jpg', description: "Boy in Rain", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'dandelion.jpg', description: "Dandelion", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'evening.jpg', description: "Evening", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'girlinrain.jpg', description: "Girl in Rain", medium: 'Watercolor', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'farmer.jpg', description: "Marks of Toil", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'ladyinmoon.jpg', description: "Lady in Moon", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'radhakrishna.jpg', description: "Radha Krishna", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'radhamadhavam.jpg', description: "Radha Madhavam", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'saxgirl.jpg', description: "Sax Girl", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'squirrels.jpg', description: "Squirrels", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'winter.jpg', description: "Winter", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },
+                {fileName: 'toronto.jpg', description: "Toronto", medium: 'Digital', size: '10 x 12 in', price: '', availability: 'Available', printSizes: '8x10, 12x16, 16x20 in'  },                
             ]; 
 
             let pics = [];
@@ -304,20 +311,16 @@
 
 
             function loadPicsByCurFilter(){
-                let curFilter = $('#filter').find('option:selected').text();
+                let medium = $('#filter').find('option:selected').text();
+                let availability = $('#hideSold').is(":checked") ? "Available" : "All";
+
+                pics = [];                    
+                picsDb.forEach(pic => {
+                    if((medium == "All" || pic.medium == medium) && (availability == "All" || pic.availability == availability)){
+                        pics.push(pic);
+                    }
+                });
                 
-                if(curFilter === "All"){
-                    pics = picsDb;
-                }else{
-                    pics = [];
-
-                    picsDb.forEach(pic => {
-                        if(pic.medium == curFilter){
-                            pics.push(pic);
-                        }
-                    });
-                }
-
                 noOfPages = Math.ceil(pics.length / pageSize);
                 curPageNo = 1;
                 startIndex = 0;
@@ -378,9 +381,11 @@
             function showImage(index){
                 let pic = pics[index];
 
-                let info = pic.medium + "   |   " +  pic.size + "   |   " +  pic.availability;
+                let availabilityColor = pic.availability == "Sold" ? "orangered" : "lightgreen";
+                let info = pic.medium + "   |   " +  pic.size + "   |   <span style='color:" + availabilityColor + "'>" +  pic.availability + "</span>";
+                info = info + "<div>Prints: " + pic.printSizes + " </div>"
                 $("#title").text(pic.description);
-                $("#info").text(info);
+                $("#info").html(info);
 
                 let url = `/gallery/paintings/${pic.fileName}`;
                 let canvas = $('#canvas');
@@ -397,17 +402,6 @@
                     curIndex = parseInt($(this).attr("data-index"));
 
                     showImage(curIndex);
-
-                    // let title = $(this).attr("data-title");
-                    // let info = $(this).attr("data-medium") + "   |   " +  $(this).attr("data-size") + "   |   " +  $(this).attr("data-availability");
-                    // $("#title").text(title);
-                    // $("#info").text(info);
-                    
-                    // let url = this.src.replace('thumbnails', 'paintings');                    
-                    // let canvas = $('#canvas');
-                    // $(canvas).css('display', 'flex');
-                    // $('#photo').attr('src', url);
-                    // $('#photo').css('margin', 'auto');
     
                 });      
 
@@ -449,20 +443,25 @@
 
             }
 
-            $(function(){
-
+            function refreshListing(){
                 loadPicsByCurFilter();
                 createPageLinks();
                 loadPage();
                 setupPageLinks();
+            }
+
+            $(function(){
+                refreshListing();
 
 
                 $('#filter').change(() => {
-                    loadPicsByCurFilter();
-                    createPageLinks();
-                    loadPage();
-                    setupPageLinks();
+                    refreshListing();
                 });
+
+                $('#hideSold').change(() => {
+                    refreshListing();
+                });
+
 
             });
 

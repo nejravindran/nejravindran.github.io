@@ -281,7 +281,7 @@
                 {fileName: 'abstractgirl.jpg', description: "Abstract Girl (Digital Watercolor)", medium: 'Digital', size: 'Multiple sizes', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },
                 {fileName: 'angling.jpg', description: "Angling (Digital Watercolor)", medium: 'Digital', size: 'Multiple sizes', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },
                 {fileName: 'applepicker.jpg', description: "Apple Picking (Digital Oil)", medium: 'Digital', size: 'Multiple sizes', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },
-                {fileName: 'appleseller.jpg', description: "Apple Seller (Digital Oil)", medium: 'Digital', size: 'Multiple sizes', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },
+                {fileName: 'appleseller.jpg', description: "Apple Season (Digital Oil)", medium: 'Digital', size: 'Multiple sizes', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },
                 {fileName: 'autumn.jpg', description: "Autumn (Digital Oil)", medium: 'Digital', size: 'Multiple sizes', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },
                 {fileName: 'ayisha.jpg', description: "Colorful Dance (Digital Watercolor)", medium: 'Digital', size: 'Multiple sizes', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },
                 {fileName: 'bbeauty.jpg', description: "Black Innocence (Digital Oil)", medium: 'Digital', size: 'Multiple sizes', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },
@@ -300,6 +300,17 @@
                 {fileName: 'squirrels.jpg', description: "Squirrel Lovers (Digital Watercolor)", medium: 'Digital', size: 'Multiple sizes', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },
                 {fileName: 'winter.jpg', description: "Winter (Digital Watercolor)", medium: 'Digital', size: 'Multiple sizes', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },
                 {fileName: 'toronto.jpg', description: "Toronto Steetcar - winter (Digital Watercolor)", medium: 'Digital', size: 'Multiple sizes', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },                
+                {fileName: 'toronto_night.jpg', description: "Toronto Night (Watercolor)", medium: 'Watercolor', size: '16 x 12 in', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },               
+                {fileName: 'nilgiri_tahr.jpg', description: "Nilgiri Tahr (Watercolor)", medium: 'Watercolor', size: '16 x 12 in', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },               
+                {fileName: 'monsoon_ride.jpg', description: "Monsoon Ride (Watercolor)", medium: 'Watercolor', size: '10 x 8 in', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },               
+                {fileName: 'autumn_moments.jpg', description: "Autumn Moment (Watercolor)", medium: 'Watercolor', size: '10 x 8 in', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },               
+                {fileName: 'toronto_streetcar_watercolor.jpg', description: "Toronto Streetcar - Spring (Watercolor)", medium: 'Watercolor', size: '10 x 8 in', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },               
+                {fileName: 'snake_boat_race.jpg', description: "Snake Boat Race (Watercolor)", medium: 'Watercolor', size: '10 x 8 in', price: '', availability: 'Sold', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },               
+                {fileName: 'after_snow_day.jpg', description: "After Snow Day (Watercolor)", medium: 'Watercolor', size: '10 x 8 in', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },               
+                {fileName: 'sauga-evening.jpg', description: "Sauga Evening (Digital Watercolor)", medium: 'Digital', size: 'Multiple sizes', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },               
+                 
+
+
             ]; 
 
             let pics = [];
@@ -446,6 +457,22 @@
             }
 
             function refreshListing(){
+                let largeScreen = window.matchMedia("(min-width:1000px)");
+                let mediumScreen = window.matchMedia("(min-width:768px)");
+                let smallScreen = window.matchMedia("(min-width:600px)");
+                
+                
+                
+                if(largeScreen.matches){
+                    pageSize = 30;
+                }else if (mediumScreen.matches){
+                    pageSize = 20;
+                }else if(smallScreen.matches){
+                    pageSize = 10;
+                }else{
+                    pageSize = 5;
+                }
+                    
                 loadPicsByCurFilter();
                 createPageLinks();
                 loadPage();

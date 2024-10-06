@@ -47,6 +47,33 @@
                 height: 100px;
             }
 
+            .para{
+                text-align: justify;
+                margin: 10px 50px;
+                max-width: 60ch;
+            }
+
+            @keyframes typing {
+                from { width: 0 }
+                to { width: 100% }
+            }
+
+            @keyframes blink-caret {
+                from, to { border-color: transparent }
+                50% { border-color: rgb(114, 148, 241); }
+            }
+
+
+            .typewriter h2{
+                overflow: hidden; 
+                border-right: .15em solid rgb(114, 148, 241); 
+                white-space: nowrap; 
+                margin-left: 0 auto; 
+                letter-spacing: .15em; 
+                animation: typing 3.5s steps(30, end),
+                blink-caret .75s step-end infinite;
+            }
+
         </style>
     </head>
 
@@ -60,7 +87,7 @@
                                 <img class="logo" src="profile100.jpg" alt="profile pic"/>
                             </a>
                         </div>
-                        <div class="logotext">Nej Ravindran</div>
+                        <div><strong class="logotext">NEJ</strong><strong class="logotext_last"> RAVINDRAN</strong></div>
                     </div>    
                     
                     <div class="normalmenuwrapper">
@@ -98,13 +125,18 @@
             <hr/>
 
             <div class="contentwrapper">
-                <img src="/homepage_pic.jpg"  class="homepic"/>
+                <a href="/about.html">
+                    <img src="/homepage_pic.jpg"  class="homepic"/>
+                </a>
                 
+                <div id="typewriter" class="typewriter">
+                    <h2>Why do I paint</h2>
+                </div>
+                    
                 <div class="statement">
                     <hr/>
-                    <h2>Why do I paint</h2>
-
-                    <div style="text-align: justify;margin: 10px 50px;">
+                
+                    <p class="para">
                         Every painting is a journey — an adventurous yet meditative solo trip. 
                         The moment I pick up the brush, the noise of everyday life fades away. 
                         Time, worries, and the outside world dissolve, leaving only the canvas and the unfolding creation. 
@@ -113,15 +145,17 @@
                         No matter how much I prepare, every painting holds a surprise, and it’s this unpredictability that I’ve come to love. 
                         For me, the process is more fulfilling than the final result. 
                         Painting is my ultimate getaway from my wordly reality — my form of meditation, which I love to be engaged in again and again.    
-                    </div>
+                    </p>
                 </div>
 
-                <div class="carousel">
-                    <img src="/gallery/thumbnails/appleseller.jpg" class="thumb"/>
-                    <img src="/gallery/thumbnails/saxgirl.jpg" class="thumb"/>
-                    <img src="/gallery/thumbnails/applepicker.jpg" class="thumb"/>
-                    <img src="/gallery/thumbnails/tea-estates.jpg" class="thumb"/>
-                </div>
+                <a href="/gallery.html">
+                    <div class="carousel">
+                        <img src="/gallery/thumbnails/appleseller.jpg" class="thumb"/>
+                        <img src="/gallery/thumbnails/saxgirl.jpg" class="thumb"/>
+                        <img src="/gallery/thumbnails/applepicker.jpg" class="thumb"/>
+                        <img src="/gallery/thumbnails/tea-estates.jpg" class="thumb"/>
+                    </div>    
+                </a>
             </div>            
 
             <footer>
@@ -137,6 +171,28 @@
             </footer>
         </div>
 
-        <script src="site.js"></script>           
+        <script src="site.js"></script>    
+        
+        <script>
+            var typewriterdiv = document.querySelector("#typewriter");
+
+            const twobserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting){
+                        entry.target.classList.add('typewriter');
+                        //animation: rotate_menu 0.5s ease-in-out 1;
+                        console.log("enter");
+                    }else{
+                        entry.target.classList.remove('typewriter');
+                        console.log("leave");
+                    }
+                });
+            }, {threshold: 0.5});
+
+            twobserver.observe(typewriterdiv);
+
+
+
+        </script>
     </body>
 </html>

@@ -14,12 +14,60 @@
         <title>Nej Ravindran</title>
 
         <style>
-            .contentwrapper{
+            /* .contentwrapper{
                 display:grid;
                 position: relative;
                 justify-content: center;
                 align-items: center;
                 grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+                padding: 10px;
+                margin-bottom: 20px;
+            } */
+
+            @keyframes popup_animation {
+                0%{
+                    max-width: 10%;
+                    max-height: 10%;
+                }
+                100%{
+                    max-width: 90%; 
+                    max-height: 90%;
+                
+                }    
+            }
+
+            @keyframes slide_from_left_animation {
+                0%{
+                    transform: translateX(-50px);
+                }
+                100%{
+                    transform: translateX(0px);
+                }    
+            }
+
+            @keyframes slide_from_right_animation {
+                0%{
+                    transform: translateX(50px);
+                }
+                100%{
+                    transform: translateX(0px);
+                }    
+            }
+
+            .slidefromleft{
+                animation: slide_from_left_animation 0.5s linear 1;
+            }
+
+            .slidefromright{
+                animation: slide_from_right_animation 0.5s linear 1;
+            }
+
+            .contentwrapper{
+                display:grid;
+                justify-content: center;
+                align-items: center;
+                grid-template-columns: repeat(auto-fill, minmax(230px, 0.9fr));
+                row-gap: 20px;
                 padding: 10px;
                 margin-bottom: 20px;
             }
@@ -29,7 +77,7 @@
                 margin-left: auto;
                 margin-top: auto;
                 margin-right: auto;
-                margin-bottom: 5px;
+                margin-bottom: auto;
                 padding: 10px;
                 width: fit-content;
                 height:fit-content;
@@ -74,8 +122,16 @@
                 max-width: 90%; 
                 max-height: 90%;
                 padding: 2px;
-                background-color: white;
+                border-color: white;
+                border-width: 2px;
+                border-style: solid;
+                background-color: black;
                 box-shadow: 0px 0px 100px 10px black; 
+                overflow: hidden;
+            }
+
+            .popup{
+                animation: popup_animation 0.2s ease-in 1;
             }
 
             .photo{
@@ -96,7 +152,8 @@
             }
 
             .paginationwrapper{
-                width: 100%;
+                margin-left: auto;
+                margin-right: auto;
                 text-align: center;
                 color: white;
             }
@@ -184,7 +241,7 @@
                                 <img class="logo" src="profile100.jpg" alt="profile pic"/>
                             </a>
                         </div>
-                        <div class="logotext">Nej Ravindran</div>
+                        <div><strong class="logotext">NEJ</strong><strong class="logotext_last"> RAVINDRAN</strong></div>
                     </div>    
                     
                     <div class="normalmenuwrapper">
@@ -247,7 +304,7 @@
                 </div>
 
                 <div id="title" class="info"></div>
-                <div class="photoframe">
+                <div id="photoframe" class="photoframe">
                     <img id="photo" class="photo" src=""/>
                 </div>
                 <div id="info" class="info"></div>
@@ -347,8 +404,8 @@
 
                 for (let i = 1; i <= noOfPages; i++) {
                     $(".paginationwrapper").append(`<a href="#" class="pagelink pagelinkunselected">${i}</a> &nbsp;&nbsp;&nbsp;`)
-
                 }
+                
             }
 
 
@@ -405,6 +462,7 @@
                 $(canvas).css('display', 'flex');
                 $('#photo').attr('src', url);
                 $('#photo').css('margin', 'auto');
+                $('.photoframe').addClass('popup');
 
                 //console.log(curIndex);
             }
@@ -413,9 +471,7 @@
             function setupSlideShow(){
                 $('.thumb').click(function (){
                     curIndex = parseInt($(this).attr("data-index"));
-
                     showImage(curIndex);
-    
                 });      
 
                 
@@ -426,12 +482,13 @@
 
             }
 
-
             $('#prev').click(function(evt){
                 evt.stopPropagation();
 
                 if(curIndex > startIndex)
                     curIndex = curIndex - 1;
+
+                $('.photo').addClass("slidefromright");
 
                 showImage(curIndex);
             });
@@ -441,6 +498,8 @@
 
                 if(curIndex < endIndex)
                     curIndex = curIndex + 1;
+
+                $('.photo').addClass("slidefromleft");
 
                 showImage(curIndex);
             });
@@ -461,16 +520,14 @@
                 let mediumScreen = window.matchMedia("(min-width:768px)");
                 let smallScreen = window.matchMedia("(min-width:600px)");
                 
-                
-                
                 if(largeScreen.matches){
-                    pageSize = 30;
+                    pageSize = 50;
                 }else if (mediumScreen.matches){
-                    pageSize = 20;
+                    pageSize = 30;
                 }else if(smallScreen.matches){
-                    pageSize = 10;
+                    pageSize = 20;
                 }else{
-                    pageSize = 5;
+                    pageSize = 10;
                 }
                     
                 loadPicsByCurFilter();
@@ -491,8 +548,17 @@
                     refreshListing();
                 });
 
+                let photo = document.getElementById('photo');
+                photo.addEventListener('animationend', function(){
+                    photo.classList.remove('slidefromleft');
+                    photo.classList.remove('slidefromright');
+                    
+                });
+
+                
             });
 
+            
         </script>
     </body>
 </html>

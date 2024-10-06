@@ -1,13 +1,15 @@
 var mobilemenubutton = document.querySelector(".mobilemenubutton");
 var mobilemenu = document.querySelector(".mobilemenu");
 var deskemenuitems = document.querySelectorAll(".normalmenuwrapper nav ul li");
+var mobilemenubutton = document.querySelector(".mobilemenubutton");
+
 
 mobilemenubutton.addEventListener("click", function(){
     mobilemenu.classList.toggle("showmobilemenu");
 })
 
 
-const observer = new IntersectionObserver((entries) => {
+const deskMenuObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
         if (entry.isIntersecting){
             entry.target.classList.add('menuanimation');
@@ -18,5 +20,18 @@ const observer = new IntersectionObserver((entries) => {
     });
 }, {threshold: 0.5});
 
-deskemenuitems.forEach(item => observer.observe(item));
-//observer.observe(deskemenuitem);
+deskemenuitems.forEach(item => deskMenuObserver.observe(item));
+
+
+const mobileMenuObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting){
+            entry.target.classList.add('burgermenu_animation');
+        }else{
+            entry.target.classList.remove('burgermenu_animation');
+        }
+    });
+}, {threshold: 0.5});
+
+
+mobileMenuObserver.observe(mobilemenubutton);

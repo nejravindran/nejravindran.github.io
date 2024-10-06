@@ -200,6 +200,10 @@ li{
     height:3px;
 }
 
+.burgermenu_animation{
+    animation: rotate_burger_menu 0.5s linear 1;
+}
+
 .mobilemenubutton:active{
     animation: rotate_burger_menu 0.5s linear 1;
 }

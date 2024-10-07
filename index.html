@@ -36,9 +36,10 @@
             .carousel{
                 display: flex; 
                 flex-direction: row; 
-                justify-content: space-around; 
+                justify-content: center; 
                 align-items: center;
                 overflow-x: hidden;
+                width: 800px;
             }
 
             .thumb{
@@ -63,6 +64,20 @@
                 50% { border-color: rgb(114, 148, 241); }
             }
 
+            @keyframes scroll_carousel {
+                0%{
+                    transform: translateX(10px);
+                    opacity: 0;
+                }
+                100%{
+                    transform: translateX(0px);
+                    opacity: 1;
+                }
+            }
+
+            .thumb{
+                animation: scroll_carousel 1s ease-in-out 1;
+            }
 
             .typewriter h2{
                 overflow: hidden; 
@@ -174,6 +189,28 @@
         <script src="site.js"></script>    
         
         <script>
+            let startIndex = 0;
+            let endIndex = 0;
+            let batchSize = 4;
+            setInterval(() => {
+                $('.carousel').html('');
+                
+                for (let i = startIndex; i < startIndex + batchSize; i++) {
+                    const pic = picsDb[i];
+                    let imgHtml = `<img class="thumb" src="/gallery/thumbnails/${pic.fileName}"/>`; 
+
+                    $('.carousel').append(imgHtml);
+                }
+
+                if(startIndex+batchSize < picsDb.length){
+                    startIndex+=batchSize;
+                }else{
+                    startIndex = 0;
+                }
+                
+                
+            }, 3000);
+
             var typewriterdiv = document.querySelector("#typewriter");
 
             const twobserver = new IntersectionObserver((entries) => {
@@ -186,9 +223,7 @@
                 });
             }, {threshold: 0.5});
 
-            twobserver.observe(typewriterdiv);
-
-
+            twobserver.observe(typewriterdiv); 
 
         </script>
     </body>

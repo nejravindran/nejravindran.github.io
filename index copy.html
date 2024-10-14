@@ -22,51 +22,27 @@
                 align-items: center;
                 margin: 0px;
                 margin-bottom: 50px;
-                background: linear-gradient(0deg, #222, rgb(66, 88, 103) 90%, black);                
+                background: linear-gradient(0deg, #222, rgb(125, 132, 130) 90%, black);                
             }
 
             .homepicwrapper{
                 position: relative;
                 width: 100%;
-                overflow: hidden;
                 margin-bottom: -10px;
                 
             }
 
             .homepic{
                 width: 100%; 
-                transform: perspective(0px) translateZ(0px);
+                transform: translateZ(0);
             }
 
             
             .homepic_bg{
                 position: absolute;
                 width: 100%; 
-                animation: nature_animation 1s linear;
                 /* transform: translateZ(0); */
                 
-            }
-
-            .painting_on_wide_wall{
-                position: absolute;
-                width: 9%;
-                height: 17.3%;
-                left: 31.5%;
-                top: 16.2%;
-                z-index: 0;
-                filter: brightness(0.7);
-                background-color: black;
-            }
-
-            .painting_on_narrow_wall{
-                position: absolute;
-                width: 10.8%;
-                height: 14.7%;
-                left: 21%;
-                top: 23%;
-                z-index: 0;
-                filter: brightness(0.7);
-                background-color: black;
             }
 
 
@@ -116,18 +92,6 @@
                 }
             }
 
-
-            @keyframes nature_animation {
-                0%{
-                    opacity: 0;
-                }
-                100%{
-                    opacity: 1;
-                }
-            }
-
-
-            
             .thumb{
                 animation: scroll_carousel 1s ease-in-out 1;
             }
@@ -152,7 +116,7 @@
                     <div class="logowrapper">
                         <div class="logoframe">
                             <a href="/index.html">
-                                <img class="logo" src="/images/profile100.jpg" alt="profile pic"/>
+                                <img class="logo" src="profile100.jpg" alt="profile pic"/>
                             </a>
                         </div>
                         <div><strong class="logotext">NEJ</strong><strong class="logotext_last"> RAVINDRAN</strong></div>
@@ -193,8 +157,8 @@
             <div class="contentwrapper">
                 <div class="homepicwrapper">
                     <img id="homepic_bg" src="" class="homepic_bg"/>
-                    <img id="painting" src="" class=""/>
                     <img id="homepic" src="" class="homepic"/>                   
+                    
                 </div>
                 
                 <div id="typewriter" class="typewriter">
@@ -285,21 +249,13 @@
             function loadHomeImage(){
                 let homepic = document.getElementById('homepic');
                 let homepic_bg = document.getElementById('homepic_bg');
-                let painting = document.getElementById('painting');
                 
                 if(window.innerHeight > window.innerWidth){ //vertical orientation.
-                    homepic.src = '/images/home-art-narrow.png';
-                    homepic_bg.src = '/images/winter-narrow.png';
-                    painting.src = '/gallery/thumbnails/radhakrishna.jpg';
-                    painting.classList.remove('painting_on_wide_wall');
-                    painting.classList.add('painting_on_narrow_wall');
+                    homepic.src = '/home-art-wider.png';
+                    homepic_bg.src = 'winter-wider.png';
                 }else{
-                    homepic.src = '/images/home-art-wider.png';
-                    homepic_bg.src = '/images/winter-wider.png';
-                    painting.src = '/gallery/thumbnails/radhakrishna.jpg';
-                    painting.classList.remove('painting_on_narrow_wall');
-                    painting.classList.add('painting_on_wide_wall');
-      
+                    homepic.src = '/home-art-wider.png';
+                    homepic_bg.src = 'winter-wider.png';
                 }
             }
             

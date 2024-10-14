@@ -5,6 +5,7 @@ body{
     padding: 0;
     background-color: #222;
     color: aliceblue;
+    
 }
 
 
@@ -12,8 +13,6 @@ body{
     width: 100%;
     height: 100%;
     min-height: 100vh;
-
-
     display: flex;
     flex-direction: column;
     align-content:space-between;
@@ -45,6 +44,7 @@ hr {
     flex-direction: row; 
     justify-content: space-between; 
     margin: 40px;
+    margin-bottom: 10px;
 }
 
 .logowrapper{
@@ -70,7 +70,7 @@ hr {
     animation: rotate_shadow 5s linear infinite;
 }
 
-@keyframes rotate_shadow {
+/* @keyframes rotate_shadow {
     0%{
         box-shadow: -5px 5px 5px white;
     }
@@ -87,7 +87,21 @@ hr {
         box-shadow: -5px 5px 5px white;
     }
     
+} */
+
+@keyframes rotate_shadow {
+    0%{
+        box-shadow: 0px 0px 5px white;
+    }
+    50%{
+        box-shadow: 0px 0px 20px rgb(219, 44, 44);
+    }
+    100%{
+        box-shadow: 0px 0px 5px white;
+    }
+    
 }
+
 
 @keyframes rotate_menu {
     0%{

@@ -30,7 +30,6 @@
                 width: 100%;
                 overflow: hidden;
                 margin-bottom: -10px;
-                
             }
 
             .homepic{
@@ -42,9 +41,9 @@
             .homepic_bg{
                 position: absolute;
                 width: 100%; 
+                height: 90%;
+                filter: blur(0.5px);
                 animation: nature_animation 1s linear;
-                /* transform: translateZ(0); */
-                
             }
 
             .painting_on_wide_wall{
@@ -126,6 +125,21 @@
                 }
             }
 
+            @keyframes painting_animation {
+                0%{
+                    opacity: 0.5;
+                    background-color: rgba(0, 0, 0, 1);
+                }
+                100%{
+                    opacity: 1;
+                    background-color: rgba(0, 0, 0, 1);
+                }
+            }
+
+            .painting{
+                background-color: black;
+                animation: painting_animation 2s ease-in-out;
+            }
 
             
             .thumb{
@@ -193,8 +207,8 @@
             <div class="contentwrapper">
                 <div class="homepicwrapper">
                     <img id="homepic_bg" src="" class="homepic_bg"/>
-                    <img id="painting" src="" class=""/>
-                    <img id="homepic" src="" class="homepic"/>                   
+                    <img id="painting" src="" class="painting"/>
+                    <img id="homepic" src="" class="homepic"/>
                 </div>
                 
                 <div id="typewriter" class="typewriter">
@@ -246,11 +260,12 @@
             let startIndex = 0;
             let endIndex = 0;
             let batchSize = 4;
-            setInterval(() => {
+            let counter = 0;
+            window.setInterval(() => {
                 $('.carousel').html('');
                 
                 for (let i = startIndex; i < startIndex + batchSize; i++) {
-                    const pic = picsDb[i];
+                    const pic = picsDb[i]; //picsDb is a global variable defined in site.js
                     let imgHtml = `<img class="thumb" src="/gallery/thumbnails/${pic.fileName}"/>`; 
 
                     $('.carousel').append(imgHtml);
@@ -262,7 +277,18 @@
                     startIndex = 0;
                 }
                 
+                counter++;
+                if(counter % 2 == 0){
+                    let wallPainting = document.getElementById('painting');
+                    wallPainting.classList.remove('painting');
+                    wallPainting.offsetWidth;
+                    wallPainting.classList.add('painting');
+                    wallPainting.src = '/gallery/thumbnails/' + picsDb[startIndex].fileName;
+                    counter = 0;
+                }
                 
+                
+
             }, 3000);
 
 
@@ -283,59 +309,54 @@
 
             //load appropriate imgage based on screen orientation
             function loadHomeImage(){
-                let homepic = document.getElementById('homepic');
-                let homepic_bg = document.getElementById('homepic_bg');
-                let painting = document.getElementById('painting');
+                let window = document.getElementById('homepic');
+                let nature = document.getElementById('homepic_bg');
+                let wallPainting = document.getElementById('painting');
+                let wid = document.documentElement.clientWidth;
+                let hgt = document.documentElement.clientHeight;
                 
-                if(window.innerHeight > window.innerWidth){ //vertical orientation.
-                    homepic.src = '/images/home-art-narrow.png';
-                    homepic_bg.src = '/images/winter-narrow.png';
-                    painting.src = '/gallery/thumbnails/radhakrishna.jpg';
-                    painting.classList.remove('painting_on_wide_wall');
-                    painting.classList.add('painting_on_narrow_wall');
+                let isVerticalOrentation = hgt > wid; 
+
+                window.onload = () =>{
+                    if(isVerticalOrentation){
+                        nature.src = '/images/winter-narrow.jpg';
+                        wallPainting.src = '/gallery/thumbnails/radhakrishna.jpg';
+                        wallPainting.classList.remove('painting_on_wide_wall');
+                        wallPainting.classList.add('painting_on_narrow_wall');
+                    }else{
+                        nature.src = '/images/winter-wider.jpg';
+                        wallPainting.src = '/gallery/thumbnails/radhakrishna.jpg';
+                        wallPainting.classList.remove('painting_on_narrow_wall');
+                        wallPainting.classList.add('painting_on_wide_wall');                        
+                    }
+                };
+
+                if(isVerticalOrentation){ 
+                    window.src = '/images/home-art-narrow.png';
                 }else{
-                    homepic.src = '/images/home-art-wider.png';
-                    homepic_bg.src = '/images/winter-wider.png';
-                    painting.src = '/gallery/thumbnails/radhakrishna.jpg';
-                    painting.classList.remove('painting_on_narrow_wall');
-                    painting.classList.add('painting_on_wide_wall');
-      
+                    window.src = '/images/home-art-wider.png';      
                 }
             }
-            
 
+
+            window.addEventListener('scroll', () => {
+                let scrollPercent = Math.ceil(((window.scrollY / document.documentElement.clientHeight) * 100) );
+                 let nature = document.getElementById('homepic_bg');
+                 nature.style.left = 0 - scrollPercent * 0.5 + 'px'; 
+                 nature.style.top = 0 - scrollPercent * 0.5 + 'px'; 
+                 nature.style.scale = scrollPercent * 0.002 + 1;
+            });
+
+            
+            //respond to resize
             window.addEventListener('resize', () => {
                 loadHomeImage();
             });
 
+            //load image uplon start
             loadHomeImage();
-
-
-            function map (number, inMin, inMax, outMin, outMax) {
-                return (number - inMin) * (outMax - outMin) / (inMax - inMin) + outMin;
-            }
-
-            let a = 10;
-            window.onscroll = (evt) => {
-                let xVal = map(window.scrollY, 0, document.body.scrollHeight, 0, 100);
-
-
-                let y = window.scrollY;
-                let x = Math.ceil(y * 0.1);
-                x = x <= 0 ? 1 : x; 
-
-                let el = document.getElementById('vase');
-                let left = parseInt(el.style.left.replace('%', ''));
-                x = (x * left) / 100;
-                left =  left - x;
-                let pos = Math.floor(xVal) + 'px'
-                el.style.left = pos;
-
-                a++;
-                
-                console.log(xVal);
-
-            }
         </script>
+
+        <script src="canvas.js"></script>
     </body>
 </html>

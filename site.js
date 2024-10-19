@@ -1,4 +1,5 @@
 let picsDb = [
+    {fileName: 'mudtracks.jpg', description: "The Mud Tracks (Watercolor)", medium: 'Watercolor', size: '7 x 5 in', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12 in' },
     {fileName: 'kid.jpg', description: "Lone Kid (Watercolor)", medium: 'Watercolor', size: '16 x 12 in', price: '', availability: 'Sold', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in' },
     {fileName: 'ritu.jpg', description: "Breeze (Digital)", medium: 'Digital', size: 'Multiple sizes', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },
     {fileName: 'abstractgirl.jpg', description: "Abstract Girl (Digital Watercolor)", medium: 'Digital', size: 'Multiple sizes', price: '', availability: 'Available', printSizes: '10x8, 12x10, 16x12, 20x16, 30x24 in'  },

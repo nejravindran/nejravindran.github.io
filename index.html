@@ -298,7 +298,12 @@
             let counter = 0;
             window.setInterval(() => {
                 $('.carousel').html('');
-                
+    
+                if (startIndex+batchSize > picsDb.length){
+                    startIndex = 0;
+                }
+
+
                 for (let i = startIndex; i < startIndex + batchSize; i++) {
                     const pic = picsDb[i]; //picsDb is a global variable defined in site.js
                     let imgHtml = `<img class="thumb" src="/gallery/thumbnails/${pic.fileName}"/>`; 
@@ -306,19 +311,22 @@
                     $('.carousel').append(imgHtml);
                 }
 
-                if(startIndex+batchSize < picsDb.length){
-                    startIndex+=batchSize;
-                }else{
-                    startIndex = 0;
-                }
-                
+                startIndex+=batchSize;
+
                 counter++;
                 if(counter % 2 == 0){
                     let wallPainting = document.getElementById('painting');
                     wallPainting.classList.remove('painting');
                     wallPainting.offsetWidth;
                     wallPainting.classList.add('painting');
-                    wallPainting.src = '/gallery/thumbnails/' + picsDb[startIndex].fileName;
+                    let index = Math.ceil(Math.random() * picsDb.length);
+                    
+                    if(index >= picsDb.length || index < 0)
+                        index = 0;
+
+                    console.log(index);
+
+                    wallPainting.src = '/gallery/thumbnails/' + picsDb[index].fileName;
                     counter = 0;
                 }
                 
@@ -366,7 +374,7 @@
                             nature.src = '/images/winter-narrow.jpg';
                         }
                         
-                        wallPainting.src = '/gallery/thumbnails/radhakrishna.jpg';
+                        wallPainting.src = '/gallery/thumbnails/abstractgirl.jpg';
                         wallPainting.classList.remove('painting_on_wide_wall');
                         wallPainting.classList.add('painting_on_narrow_wall');
                     }else{
@@ -380,7 +388,7 @@
                             nature.src = '/images/winter-wider.jpg';
                         }
                         
-                        wallPainting.src = '/gallery/thumbnails/radhakrishna.jpg';
+                        wallPainting.src = '/gallery/thumbnails/abstractgirl.jpg';
                         wallPainting.classList.remove('painting_on_narrow_wall');
                         wallPainting.classList.add('painting_on_wide_wall');                        
                     }

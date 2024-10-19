@@ -128,6 +128,17 @@ hr {
     100%{
         transform: rotate(360deg);
     }
+
+}
+
+@keyframes expand_burger_menu {
+    0%{
+        transform: rotate(300deg);
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+
 }
 
 
@@ -155,7 +166,6 @@ hr {
 
 
 .mobilemenuwrapper{
-    display:flex; 
     flex-direction:column; 
     align-items: center;
     justify-content: center;
@@ -212,16 +222,26 @@ li{
     animation: rotate_burger_menu 0.5s linear 1;
 }
 
+.closemenu{
+    margin: 10px;
+    float: right;
+}
 
 .mobilemenu{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
     background-color: black;  
     opacity: 0.9; 
     position: fixed;
     right: 0px;
-    top: 70px;
+    top: 0px;
     z-index: 1500;
     display: none;
-    animation: expand_burger_menu 0.5s linear 1;
+    animation: expand_burger_menu 0.1s linear 1;
+    
     
 }
 

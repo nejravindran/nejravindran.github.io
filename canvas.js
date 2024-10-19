@@ -74,7 +74,7 @@ function loop(){
 function bootStrap(){      
     can = document.getElementById("can");
     can.width = window.innerWidth;
-    can.height = 700; //window.innerHeight;
+    can.height = window.innerHeight;
     cwid = can.width;
     chgt = can.height;
     ctx = can.getContext('2d', {willReadFrequently: true});
@@ -83,8 +83,8 @@ function bootStrap(){
     animationId = 0;
 
     ps = [];
-    for (var i = 1; i <= 30; i++) {
-        let p = new Particle(Math.random() * cwid, Math.random() * chgt, Math.random() + 1, 'white');
+    for (var i = 1; i <= 80; i++) {
+        let p = new Particle(Math.random() * cwid, Math.random() * chgt, Math.ceil(Math.random() * cwid/900), 'white');
         ps.push(p);
     }
 

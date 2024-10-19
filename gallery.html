@@ -173,6 +173,11 @@
                 border-radius: 20%;
             }
 
+            .pagelinkdisabled{
+                color: gray;
+                pointer-events: none;
+            }
+
             .pagelinkselected{
                 color:#007ced;
             }
@@ -263,6 +268,7 @@
                         </div>
 
                         <div class="mobilemenu">
+                            <button class="closemenu">X</button>
                             <nav>
                                 <ul>
                                     <li><a href="/index.html">Home</a></li>
@@ -365,9 +371,24 @@
             function createPageLinks(){
                 $(".paginationwrapper").html('');
 
+                
+                // $(".paginationwrapper").append(`<a href="#" id="pagelink_first" class="pagelink pagelinkunselected pagelinkdisabled" data-pageno="0"> << </a> &nbsp;&nbsp;&nbsp;`);
+                // $(".paginationwrapper").append(`<a href="#" id="pagelink_prev" class="pagelink pagelinkunselected pagelinkdisabled" data-pageno="0"> < </a> &nbsp;&nbsp;&nbsp;`);
+                
                 for (let i = 1; i <= noOfPages; i++) {
-                    $(".paginationwrapper").append(`<a href="#" class="pagelink pagelinkunselected">${i}</a> &nbsp;&nbsp;&nbsp;`)
+                    $(".paginationwrapper").append(`<a href="#" class="pagelink pagelinkunselected" data-pageno="${i}">${i}</a> &nbsp;&nbsp;&nbsp;`)
                 }
+                
+                // if(noOfPages > 1){
+                //     $(".paginationwrapper").append(`<a href="#" id="pagelink_next"  class="pagelink pagelinkunselected" data-pageno="2"> > </a> &nbsp;&nbsp;&nbsp;`);
+                //     $(".paginationwrapper").append(`<a href="#" id="pagelink_last"  class="pagelink pagelinkunselected" data-pageno="${noOfPages}"> >> </a> &nbsp;&nbsp;&nbsp;`);
+                // }else{
+                //     $(".paginationwrapper").append(`<a href="#" id="pagelink_next"  class="pagelink pagelinkunselected pagelinkdisabled" data-pageno="-1"> > </a> &nbsp;&nbsp;&nbsp;`);
+                //     $(".paginationwrapper").append(`<a href="#" id="pagelink_last"  class="pagelink pagelinkunselected pagelinkdisabled" data-pageno="${noOfPages}"> >> </a> &nbsp;&nbsp;&nbsp;`);
+            
+                // }
+                
+                
                 
             }
 
@@ -469,7 +490,8 @@
 
             function setupPageLinks(){
                 $('.pagelink').click(function (){
-                    curPageNo = $(this).text(); 
+                    //curPageNo = $(this).text();
+                    curPageNo = $(this).attr('data-pageno'); 
                     loadPage();
                     $('.pagelink').removeClass('pagelinkselected');
                     $('.pagelink').addClass('pagelinkunselected');

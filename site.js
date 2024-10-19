@@ -39,7 +39,12 @@ var mobilemenubutton = document.querySelector(".mobilemenubutton");
 var mobilemenu = document.querySelector(".mobilemenu");
 var deskemenuitems = document.querySelectorAll(".normalmenuwrapper nav ul li");
 var mobilemenubutton = document.querySelector(".mobilemenubutton");
+var mobilemenuclosebutton = document.querySelector(".closemenu");
 
+
+mobilemenuclosebutton.addEventListener("click", function(){
+    mobilemenu.classList.toggle("showmobilemenu");
+})
 
 mobilemenubutton.addEventListener("click", function(){
     mobilemenu.classList.toggle("showmobilemenu");

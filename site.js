@@ -40,6 +40,13 @@ var mobilemenu = document.querySelector(".mobilemenu");
 var deskemenuitems = document.querySelectorAll(".normalmenuwrapper nav ul li");
 var mobilemenubutton = document.querySelector(".mobilemenubutton");
 var mobilemenuclosebutton = document.querySelector(".closemenu");
+var loader = document.querySelector("#loader");
+
+
+window.onload = () => {
+    loader.classList.remove("loading");
+    loader.classList.add("loaded");
+};
 
 
 mobilemenuclosebutton.addEventListener("click", function(){

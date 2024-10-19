@@ -178,6 +178,10 @@
     </head>
 
     <body>
+        <div id="loader" class="loading">
+            <h1>Loading...</h1>
+        </div>
+
         <div class="wrapper">
             <header>
                 <div class="headerwrapper">
@@ -340,13 +344,33 @@
                 let isVerticalOrentation = hgt > wid; 
 
                 window.onload = () =>{
+                    let month = new Date().getMonth();
+
                     if(isVerticalOrentation){
-                        nature.src = '/images/winter-narrow.jpg';
+                        if (month>=3 && month<=5){ //april to june
+                            nature.src = '/images/spring-narrow.jpg';
+                        }else if (month>=6 && month<=8){ //july to sep
+                            nature.src = '/images/spring-narrow.jpg';
+                        }else if(month>=9 && month<=10){ //oct to nov
+                            nature.src = '/images/fall-narrow.jpg';
+                        }else{ //dec to mar
+                            nature.src = '/images/winter-narrow.jpg';
+                        }
+                        
                         wallPainting.src = '/gallery/thumbnails/radhakrishna.jpg';
                         wallPainting.classList.remove('painting_on_wide_wall');
                         wallPainting.classList.add('painting_on_narrow_wall');
                     }else{
-                        nature.src = '/images/winter-wider.jpg';
+                        if (month>=3 && month<=5){ //april to june
+                            nature.src = '/images/spring-wider.jpg';
+                        }else if (month>=6 && month<=8){ //july to sep
+                            nature.src = '/images/spring-wider.jpg';
+                        }else if(month>=9 && month<=10){ //oct to nov
+                            nature.src = '/images/fall-wider.jpg';
+                        }else{ //dec to mar
+                            nature.src = '/images/winter-wider.jpg';
+                        }
+                        
                         wallPainting.src = '/gallery/thumbnails/radhakrishna.jpg';
                         wallPainting.classList.remove('painting_on_narrow_wall');
                         wallPainting.classList.add('painting_on_wide_wall');                        

@@ -8,6 +8,45 @@ body{
     
 }
 
+@keyframes change_color {
+    0%{
+        color: white;
+    }
+    50%{
+        color: #007ced;    
+    }
+    100%{
+        color: white;
+    }
+}
+
+.loading{
+    font: arial;
+    position: fixed;
+    width: 100%;
+    top: 0px;
+    bottom: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    background-color: black;
+}
+
+.loading h1{
+    color: #007ced;
+    animation: change_color 3s linear infinite;
+}
+
+
+.loaded{
+    width: 0px;
+    height: 0px;
+    left: 0px;
+    top: 0px;
+    display: none;
+}
 
 .wrapper{
     width: 100%;

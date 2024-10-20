@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="icon" type="image/x-icon" href="/favicon.ico">
+        
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Poppins'>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+
+        <link rel="stylesheet" href="style.css">
+        
+        <title>Nej Ravindran</title>
+
+        <style>
+            .contentwrapper{
+                display:flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .toolbar{
+                display: flex;
+                flex-direction: row;
+                align-items:start;
+                color: white;
+                
+            }
+
+            #can{
+                background-color: black;
+                width: 100%;
+            }
+
+            #can_template{
+                background-color: white;
+                width: 100%;
+                display: none;
+            }
+
+            button{
+                padding: 10px;
+                margin: 2px;
+            }
+
+            input{
+                padding: 10px;
+                margin: 2px;
+                width: 2rem;
+            }
+
+            #btn_linecolor{
+                background-color: white;
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <div id="loader" class="loading">
+            <h1>Loading...</h1>
+        </div>
+
+        <div class="wrapper">
+            <header>
+                <div class="headerwrapper">
+                    <div class="logowrapper">
+                        <div class="logoframe">
+                            <a href="/index.html">
+                                <img class="logo" src="/images/profile100.jpg" alt="profile pic"/>
+                            </a>
+                        </div>
+                        <div><strong class="logotext">NEJ</strong><strong class="logotext_last"> RAVINDRAN</strong></div>
+                    </div>    
+                    
+                    <div class="normalmenuwrapper">
+                        <nav>
+                            <ul>
+                                <li><a href="/index.html">Home</a></li>
+                                <li><a href="/shop.html">Shop</a></li>
+                                <li><a href="/gallery.html">Gallery</a></li>
+                                <li><a href="/about.html">About</a></li>
+                            </ul>
+                        </nav>        
+                    </div>    
+
+                    <div class="mobilemenuwrapper">
+                        <div class="mobilemenubutton">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </div>
+
+                        <div class="mobilemenu">
+                            <button class="closemenu">X</button>
+                            <nav>
+                                <ul>
+                                    <li><a href="/index.html">Home</a></li>
+                                    <li><a href="/shop.html">Shop</a></li>
+                                    <li><a href="/gallery.html">Gallery</a></li>
+                                    <li><a href="/about.html">About</a></li>
+                                </ul>
+                            </nav>        
+                        </div>
+                    </div>
+                </div>
+            </header>
+            
+            <hr/>
+
+            <div class="contentwrapper">
+                <div class="toolbar">
+                    <button id="btn_open">Open Image</button>
+                    <input id="file" style="display: none;" type="file" accept="image/png, image/jpeg"/>
+                    div:
+                    <input type="text" id="txt_cellsize" class="txtbox" value="10"/>                
+                    thick:
+                    <input type="text" id="txt_linewidth" class="txtbox" value="2"/>
+                    <!-- <button id="btn_linecolor">line color</button> -->
+                    <button id="btn_applygrid">Apply</button>
+                    <button id="btn_download">Download</button>
+                    
+                </div>
+                <hr/>
+
+                <canvas id="can"></canvas>
+                <canvas id="can_template"></canvas>
+                
+
+            </div>
+
+            <footer>
+                <div>
+                    <span class="social">&copy Nej Ravindran |</span>
+                </div>
+                <div>
+                    <a class="social" href="https://www.instagram.com/nej.ravindran"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+                <div>
+                    <a class="social" href="https://www.youtube.com/@nej.ravindran"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+            </footer>
+
+        </div>
+
+        <script src="site.js"></script> 
+        
+        <script>
+            $(document).ready(function(){
+                let txt_cellsize = $('#txt_cellsize');
+                let txt_linewidth = $('#txt_linewidth');
+                let btn_linecolor = $('#btn_linecolor');
+                let btn_openimage = $('#btn_open');
+                let btn_applygrid = $('#btn_applygrid');
+                let btn_download = $('#btn_download');
+                
+                let canvas = document.getElementById('can');
+                let canvas_template = document.getElementById('can_template');
+                
+                        
+                
+                txt_cellsize.focus(() => {
+                    let txtVal = txt_cellsize.val().trim();
+                    if (!isNumeric(txtVal)){
+                        txt_cellsize.val('');
+                    }
+                });
+
+                txt_cellsize.focusout(() => {
+                    let txtVal = txt_cellsize.val().trim();
+                    if (!isNumeric(txtVal)){
+                        txt_cellsize.val('cell size');
+                    }
+                });
+
+                txt_linewidth.focus(() => {
+                    let txtVal = txt_linewidth.val().trim();
+                    if (!isNumeric(txtVal)){
+                        txt_linewidth.val('');
+                    }
+                });
+
+                txt_linewidth.focusout(() => {
+                    let txtVal = txt_linewidth.val().trim();
+                    if (!isNumeric(txtVal)){
+                        txt_linewidth.val('line width');
+                    }
+                });
+
+                
+                btn_openimage.click(() => {
+                    
+                    let fileDlg = document.getElementById("file");
+                    
+
+                    fileDlg.onchange = (e) => {
+                        let file = e.target.files[0];
+                        if(file === undefined || file == null)
+                            return;
+
+                        var reader = new FileReader();
+                        reader.onload = (re) => {
+                            loadImage(re.target.result);
+                        };
+
+                        reader.readAsDataURL(file);
+                    };
+
+                    fileDlg.click();
+                });
+
+
+                btn_applygrid.click(() => {
+                    let canWid = canvas.width;
+                    let canHgt = canvas.height;
+                    let rowcols = parseInt(txt_cellsize.val());
+                    let linewid = parseInt(txt_linewidth.val());
+                    let lineColor = 'red';
+                    let divisions = 0;
+                    if(canWid > canHgt){
+                        divisions = Math.floor(canWid / rowcols);
+                    }else{
+                        divisions = Math.floor(canHgt / rowcols);
+                    }
+
+                    
+                
+                    let ctx = canvas.getContext('2d');
+                    ctx.strokeStyle = lineColor;
+                    ctx.lineWidth = linewid;
+                    ctx.beginPath();
+                    
+
+                    canvas_template.width = canWid;
+                    canvas_template.height = canHgt;
+                    let ctx_template = canvas_template.getContext('2d');
+                    ctx_template.fillStyle = 'white';
+                    ctx_template.lineWidth = linewid;
+                    ctx_template.strokeStyle = lineColor;
+                    ctx_template.fillRect(0, 0, canvas_template.width, canvas_template.height);
+
+                    for (let x = 0; x < canWid; x+=divisions) {
+                        ctx.moveTo(x, 0);
+                        ctx.lineTo(x, canHgt);
+                        ctx.stroke();
+
+                        ctx_template.moveTo(x, 0);
+                        ctx_template.lineTo(x, canHgt);
+                        ctx_template.stroke();
+
+                    }
+
+                    for (let y = 0; y < canHgt; y+=divisions) {
+                        ctx.moveTo(0, y);
+                        ctx.lineTo(canWid, y);
+                        ctx.stroke();
+
+                        ctx_template.moveTo(0, y);
+                        ctx_template.lineTo(canWid, y);
+                        ctx_template.stroke();
+                    }
+
+                });
+
+                btn_download.click(() => {
+                    var link = document.createElement('a');
+                    link.download = 'gridded_original.jpg';
+                    link.href = canvas.toDataURL()
+                    link.click();
+
+                    var link2 = document.createElement('a');
+                    link2.download = 'gridded_template.jpg';
+                    link2.href = canvas_template.toDataURL()
+                    link2.click();
+
+                });
+
+
+                function loadImage(image){
+                    let img = new Image();
+
+                    img.onload = () => {
+                        canvas.width = img.naturalWidth;
+                        canvas.height = img.naturalHeight;
+
+                        let ctx = canvas.getContext('2d');
+                        let canWid = canvas.width;
+                        let canHgt = canvas.height;
+                        ctx.clearRect(0, 0, canWid, canHgt);
+
+                        let wRatio = canWid / img.naturalWidth;
+                        let hRatio = canHgt / img.naturalHeight;
+
+                        ctx.drawImage(img, 0, 0, img.naturalWidth, img.naturalHeight, 0, 0, img.naturalWidth, img.naturalHeight);
+
+                    };
+
+                    img.src = image;
+                }
+
+            });
+
+            function isNumeric(value){
+                return (/^[0-9]+[.]{0,1}[0-9]*$/.test(value));
+            }
+
+
+        </script>
+    </body>
+</html>

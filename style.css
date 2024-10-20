@@ -297,8 +297,15 @@ li{
     animation: rotate_menu 0.5s ease-in-out 1;
 }
 
+.menuselected{
+    color:white;
+    background-color: #007ced;
+    border-radius: 10%;
+    padding: 0.2rem;
+}
+
 /* for desktop */
-@media (min-width:768px) {
+@media (min-width:800px) {
     .mobilemenuwrapper{
         display: none;
     }
@@ -323,7 +330,7 @@ li{
     }
 
     .normalmenuwrapper nav ul li a:hover{
-        color:#007ced;
+        color:cornflowerblue;
         margin-right: 2.5rem;
         
     }       

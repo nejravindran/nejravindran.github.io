@@ -117,9 +117,14 @@
                     <input type="text" id="txt_cellsize" class="txtbox" value="10"/>                
                     thick:
                     <input type="text" id="txt_linewidth" class="txtbox" value="2"/>
+                    color:
+                    <button id="btn_color">Color</button>
+                    
+                    <input type="color" style="opacity: 0; width: 0px; height: 0px;" id="dlg_color" value="#ff0000">
                     <!-- <button id="btn_linecolor">line color</button> -->
                     <button id="btn_applygrid">Apply</button>
                     <button id="btn_download">Download</button>
+                    <button id="btn_clear">Clear</button>
                     
                 </div>
                 <hr/>
@@ -154,11 +159,22 @@
                 let btn_openimage = $('#btn_open');
                 let btn_applygrid = $('#btn_applygrid');
                 let btn_download = $('#btn_download');
-                
+                let btn_color = $('#btn_color');
+                let dlg_color = $('#dlg_color');
+                let btn_clear = $('#btn_clear');
+
                 let canvas = document.getElementById('can');
                 let canvas_template = document.getElementById('can_template');
                 
+                dlg_color.on('input', () => {
+                    $(btn_color).css('backgroundColor', dlg_color.val())                });
+
+                btn_color.click(() => {
+                    console.log(dlg_color[0]);
+                    dlg_color.click();
+                });
                         
+                dlg_color.val('#ff0000').trigger('input');
                 
                 txt_cellsize.focus(() => {
                     let txtVal = txt_cellsize.val().trim();
@@ -189,11 +205,12 @@
                 });
 
                 
+                let _lastImage = null;
+
                 btn_openimage.click(() => {
                     
                     let fileDlg = document.getElementById("file");
                     
-
                     fileDlg.onchange = (e) => {
                         let file = e.target.files[0];
                         if(file === undefined || file == null)
@@ -201,6 +218,7 @@
 
                         var reader = new FileReader();
                         reader.onload = (re) => {
+                            _lastImage = re.target.result;
                             loadImage(re.target.result);
                         };
 
@@ -216,7 +234,7 @@
                     let canHgt = canvas.height;
                     let rowcols = parseInt(txt_cellsize.val());
                     let linewid = parseInt(txt_linewidth.val());
-                    let lineColor = 'red';
+                    let lineColor = dlg_color.val();
                     let divisions = 0;
                     if(canWid > canHgt){
                         divisions = Math.floor(canWid / rowcols);
@@ -275,6 +293,13 @@
                     link2.click();
 
                 });
+
+
+                btn_clear.click(() => {
+                    if(_lastImage == null) return;
+                    loadImage(_lastImage);
+                });
+
 
 
                 function loadImage(image){

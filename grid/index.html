@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='grid.css'>
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <script src="grid.min.js"></script>
+
+    <title>Drawing Grid - Nej Ravindran</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row title-row">
+            <div class="toolbar-row"> 
+                <h1>Artist's Drawing Grid</h1>
+            </div>
+            
+            <span>
+                <a href="https://www.instagram.com/nej.ravindran/" target="_blank" style="color: aqua;">follow me: @nej.ravindran</a>   
+            </span>
+
+            <img style="display:none;" src="https://api.visitorbadge.io/api/visitors?path=nej.ravindran-artist-grid&countColor=%234a748a&style=flat"></img>
+        </div>
+
+        <div class="row canvas-row" id="canvas-row">
+            <div class="floating">
+                <div>
+                    <button class="toolbar-button open-button" id="btn-open-image" title="Open image">
+                        <i class="fa-regular fa-folder-open"></i>
+                    </button>
+                    <input id="file" style="display: none;" type="file" accept="image/png, image/jpeg"/>
+
+                    <button class="toolbar-button open-button hidden" id="btn-effects" title="Effects">
+                        <i class="fa-solid fa-sliders"></i>
+                    </button>
+
+                    <button class="toolbar-button open-button hidden" id="btn-grid-settings" title="Grid settings">
+                        <i class="fa-solid fa-border-all"></i>
+                    </button>
+                </div>
+                <div class="hidden" id="fit-controls">                    
+                    <input class="toolbar-chk" type="checkbox" id="chk-fit-size" name="chk-fit-size" checked/>
+                    <label for="chk-fit-size">Fit</label>
+                    
+                    <div class="menu-sep"></div>
+
+                    <input class="toolbar-chk" type="checkbox" id="chk-fill-size" name="chk-fill-size"/>
+                    <label for="chk-fill-size">Fill</label>                    
+
+                    <div class="menu-sep"></div>
+
+                    <input class="toolbar-chk" type="checkbox" id="chk-actual-size" name="chk-actual-size"/>
+                    <label for="chk-actual-size">Actual</label>
+                </div>
+            </div>
+
+            <div class="drawer-container hidden" id="effect-controls-container">
+                <div class="drawer" id="effect-controls">
+                    <div class="controls-frame">
+                        <div class="controls-row">
+                            <div class="controls-col">
+                                <span>Simplify</span>
+                                <input id="sld-simplify" type="range" min="0" max="10" step="1" value="0"/>
+                            </div>
+                        </div>
+                        
+                        <div class="controls-row">
+                            <div class="controls-col">
+                                <span>Brightness</span>
+                                <input id="sld-brightness" type="range" min="-100" max="100" step="1"/>
+                            </div>
+                            <div class="controls-col">
+                                <span>Contrast</span>
+                                <input id="sld-contrast" type="range" min="-100" max="100" step="1"/>
+                            </div>                    
+                        </div>
+
+                        <div class="controls-row">
+                            <div class="controls-col">
+                                <span>Saturation</span>
+                                <input id="sld-saturation" type="range" min="-100" max="100" step="1"/>
+                            </div>
+                            <div class="controls-col">
+                                <span>Sharpness</span>
+                                <input id="sld-sharpness" type="range" min="-100" max="100" step="1"/>
+                            </div>                    
+                        </div>
+
+                        <div id="status">
+                            <div class="controls-row" id="status">
+                                <div class="controls-col">
+                                    <div style="display: flex; flex-direction: row; align-items: center;">
+                                        <img src="loading.gif" width="50px"/>
+                                        <span style="color: red;">Please wait...</span>
+                                    </div>
+                                </div>
+                                <div class="controls-col">
+                                    <progress id="progress" style="width: 100%;" value="0" max="100"></progress>
+                                </div>                    
+                            </div>                
+                            <div class="controls-row">
+                                <span style="color: rgb(156, 185, 153);">
+                                    Some operations are CPU-intensive and may take longer depending on your device capabilities.
+                                </span> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="drawer-container hidden" id="grid-controls-container">
+                <div class="drawer" id="grid-controls">
+                    <div class="controls-frame">
+                        <div class="toolbar-row">
+                            <label for="nud-lines">Divs:</label>
+                            <input class="toolbar-nud" type="number" id="nud-lines" name="nud-cols" min="0" max="100" step="1" value="10"/>
+                        
+                            <select class="toolbar-combo" id="cmb-divs">
+                                <option value="rows">Rows</option>
+                                <option value="cols">Cols</option>
+                                <option value="auto">Auto</option>
+                            </select>
+
+                            <label for="nud-thickness">Thickness:</label>
+                            <input class="toolbar-nud" type="number" id="nud-thickness" name="nud-lines" min="1" max="10" step="1" value="5"/>
+                        
+                            <label for="btn-color">Color:</label>
+                            <button class="color-button" id="btn-color"></button>   
+                            <input type="color" style="opacity: 0; width: 0px; height: 0px;" id="dlg-color" value="#ff0000">         
+                        </div>
+
+                        <div class="toolbar-row">            
+                            <input class="toolbar-chk" type="checkbox" id="chk-add-labels" name="chk-add-labels"/>
+                            <label for="chk-add-labels">Labels</label>                
+
+                            <input class="toolbar-chk" type="checkbox" id="chk-diagonal" name="chk-diagonal"/>
+                            <label for="chk-diagonal">Diagonal lines</label>
+                        </div>
+                        
+                        <div class="toolbar-row">
+                            <button class="apply-button" id="btn-apply">Apply Grid</button>
+                            <button class="reset-button" id="btn-reset">Clear Grid</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="canvas-frame">
+                <canvas id="can-display" class="canvas"></canvas>
+                <canvas id="can-template" style="display:none;width:100%;"></canvas>
+            </div>
+
+            <div class="floating-bottom hidden" id="floating-bottom">
+                <div class="generic-col">
+                    <div class="generic-row">
+                        <input class="toolbar-chk" type="checkbox" id="chk-generate-blank-grid" name="chk-generate-blank-grid" title="Download blank template"/>
+                        <label for="chk-generate-blank-grid">Template</label>  
+                    </div>
+                    <button class="download-button" id="btn-download" title="Download">
+                        <i class="fa-solid fa-download"></i>
+                    </button>          
+                </div>                            
+            </div>
+        </div>
+
+        
+        <!-- <div class="row">
+        </div> -->
+    </div>     
+</body>
+</html>

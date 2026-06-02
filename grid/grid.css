@@ -170,8 +170,8 @@ html, body {
 }
 
 .color-dlg{
-    width: 100px; 
-    height: 100px; 
+    width: 80px; 
+    height: 80px; 
     border: none;
     transform: translate(-50%, -50%);
 
